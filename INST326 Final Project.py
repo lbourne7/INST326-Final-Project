@@ -1,11 +1,7 @@
-#edited by melody
-#Helloooooooo
+# Laurencia's function to take players bets and return winner while giving 
+# player feedback
 
-## edited by laurencia
-# hi
-# hello 
- 
-  
+from random import choice
 def take_players_bets(players):
     """"
     The will be for the betting round and it would get and collct the players 
@@ -56,7 +52,7 @@ def determine_winners(players, community_cards):
     calculate_hands = 0
     
     print("Final Hand Ranking ")
-    print(f"Community Cards:",  * community_cards)
+    print(f"Community Cards: {', ' .join(community_cards)}")
   
     for player in players: 
       
@@ -72,7 +68,7 @@ def determine_winners(players, community_cards):
         """rank_name, score = mock_hands(total_cards)
          """   
       
-        print (f"{player['name']} had:", * player['hand'])
+        print (f"{player['name']} had: { ', '.join(player['hand'])}")
         print(f"Result: {rank_name} (Score: {score})")
     
         if score > highest_score:
@@ -97,17 +93,16 @@ def mock_hands(total_cards):
          tuple: (str) rank_name , int score 
     """
 
-    from random import choice
+    
     options = [
         ("Royal Flush", 49),
         ("Full House", 30),
         ("Two Pair", 20),
         ("High Card", 1)
     ]
-    # return choice(options)
-    return "Full House" , 86 
+    return choice(options)
+    
   
-     
         
 def begin_game():
 
@@ -124,7 +119,7 @@ def begin_game():
         
     
     pick = take_players_bets(players)
-    print(f"The total of the pick is:{pick}")
+    print(f"The total of the pick is: {pick}")
     
     winners, top_score = determine_winners(players, community_cards)
     print(f"Winner is {winners.upper()} with score of {top_score}")

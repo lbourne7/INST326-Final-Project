@@ -1,5 +1,5 @@
 # Laurencia's function to take players bets and return winner while giving 
-# player feedback
+# player feedback 
 
 from random import choice
 def take_players_bets(players):

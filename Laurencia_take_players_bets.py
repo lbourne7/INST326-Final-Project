@@ -1,3 +1,7 @@
+# Laurencia's function to take players bets and return winner while giving 
+# player feedback 
+
+from random import choice
 def take_players_bets(players):
     """"
     The will be for the betting round and it would get and collct the players 
@@ -18,13 +22,14 @@ def take_players_bets(players):
     for player in players: 
         while True: 
             try:
-                bet = int(input(f"{player['name']}, enter your bet.")) 
+                bet = int(input(f"{player['name']}, enter your bet ")) 
                 player['current_bet'] = bet 
                 total_players += bet
                 break 
             except ValueError:
                 print("Invalid input. Please enter a number for your bet.")
     return total_players 
+
 
 def determine_winners(players, community_cards):
     
@@ -42,32 +47,42 @@ def determine_winners(players, community_cards):
         tuple: winners_names (str), highest_score(int)
     """
     
-    highest_score = - 1
+    highest_score = -1
     winners_name = "None"
+    calculate_hands = 0
     
     print("Final Hand Ranking ")
-    print(f"Community Cards:",  * community_cards)
-    
+    print(f"Community Cards: {', ' .join(community_cards)}")
+  
     for player in players: 
-        
+      
         total_cards = player['hand'] + community_cards
-         
        
-        rank_name, score = mock_hands(total_cards)
-            
+        if calculate_hands is not None:
+           rank_name, score =  mock_hands(total_cards)
+           
+        if calculate_hands is None:
+            score = int(1,100)
+            rank_name = "High card"
        
-        print (f"{player['name']} had:", * player['hand'])
-        print(f"Result: {rank_name} (Score:{score})")
-        
+        """rank_name, score = mock_hands(total_cards)
+         """   
+      
+        print (f"{player['name']} had: { ', '.join(player['hand'])}")
+        print(f"Result: {rank_name} (Score: {score})")
+    
         if score > highest_score:
             highest_score = score
             winners_name = player['name']
         else:
             if score == highest_score:
-                 winners_name = winners_name + " and " + player['name']
-     
+                if player['name']:
+                
+                 winners_name = winners_name + " and " + player["name"]
+        
         
     return winners_name, highest_score
+ 
             
             
 def mock_hands(total_cards):
@@ -77,9 +92,17 @@ def mock_hands(total_cards):
     Returns:
          tuple: (str) rank_name , int score 
     """
-    return "Full House", 86
+
+    
+    options = [
+        ("Royal Flush", 49),
+        ("Full House", 30),
+        ("Two Pair", 20),
+        ("High Card", 1)
+    ]
+    return choice(options)
+    
   
-     
         
 def begin_game():
 
@@ -96,7 +119,7 @@ def begin_game():
         
     
     pick = take_players_bets(players)
-    print(f"The total of the pick is:{pick}")
+    print(f"The total of the pick is: {pick}")
     
     winners, top_score = determine_winners(players, community_cards)
     print(f"Winner is {winners.upper()} with score of {top_score}")
@@ -105,4 +128,6 @@ def begin_game():
 if __name__ == "__main__":
     begin_game()
 
+                
+            
                 

@@ -4,6 +4,8 @@
 from random import choice
 def take_players_bets(players):
     """"
+    Author: Laurencia Aparin
+    
     The will be for the betting round and it would get and collct the players 
     bets:
     

@@ -109,7 +109,12 @@ def mock_hands(total_cards):
 def begin_game():
 
     """""
-    This is used as a mock to test my code and the game
+    This is used to begin the Texas Hold'em game
+    Author: Laurencia Aparin 
+    
+    
+    Technique set opertaions (intersection ) 
+    checks to see if any players card is in the community cards
     """
     
     players = [
@@ -118,8 +123,21 @@ def begin_game():
     ]
     
     community_cards = ["Ace of Diamonds", "King of Hearts", "10 of Spades", "3 of Clubs", "7 of Hearts"]
-        
     
+    
+ 
+    all_player_cards = set(players[0]["hand"] + players[1]["hand"])
+    community_set = set(community_cards)
+    
+    same_cards = all_player_cards.intersection(community_set)
+    
+    if same_cards: 
+        print(f"Found Match{len(same_cards)} cards on the board:{same_cards}")
+    
+    else:
+        print("No direct card match found. ")
+    
+ 
     pick = take_players_bets(players)
     print(f"The total of the pick is: {pick}")
     

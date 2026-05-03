@@ -1,7 +1,7 @@
 
 import random
 
-def shuffle_and_deal(num_players, deck, comm_count, cards_per_player):
+def shuffle_and_deal(num_players, deck, comm_count, cards_per_player = 2):
     """Shuffling a deck and dealing cards to players and the community 
 
         Args: 
@@ -30,7 +30,7 @@ def shuffle_and_deal(num_players, deck, comm_count, cards_per_player):
     total_cards_needed =(num_players * cards_per_player) + comm_count
     
     if total_cards_needed > len(deck):
-        raise ValueError("Not enough cards in the deck!")
+        raise ValueError(f"Not Enough cards in the deck! Need {total_cards_needed}, but only have {len(deck)}."
     
     random.shuffle(deck)
     

@@ -22,9 +22,14 @@ def take_players_bets(players):
     print("Betting round")
     
     for player in players: 
+          #if player.folded:
+           #  continue 
         while True: 
             try:
-                bet = int(input(f"{player['name']}, enter your bet ")) 
+                bet = int(input(f" {player['name']}, enter your bet ")) 
+                # conditonal expressions s
+                player['status'] = "High roller" if bet > 100 else "Standard"
+                
                 player['current_bet'] = bet 
                 total_players += bet
                 break 
@@ -36,6 +41,8 @@ def take_players_bets(players):
 def determine_winners(players, community_cards):
     
     """"
+    Author: Laurencia Aparin 
+    
      This is used to evalute the state of the game and identify the players with 
      the higest score 
      
@@ -77,16 +84,19 @@ def determine_winners(players, community_cards):
             highest_score = score
             winners_name = player['name']
         else:
-            if score == highest_score:
-                if player['name']:
-                
-                 winners_name = winners_name + " and " + player["name"]
-        
+            if score >= highest_score:
+            
+                  """"condtional expression we would be using it to see if the 
+                  score is higher make a new string (name). if there is a tie or 
+                  we add new name to the exsiting winners 
+                  """
+            winners_name = player['name'] if score > highest_score else f"{
+                     winners_name}" and {player['name']}
+            highest_score = score 
         
     return winners_name, highest_score
  
-            
-            
+  
 def mock_hands(total_cards):
     """"
     This is a mock function that acts as the hand logic 
@@ -105,6 +115,7 @@ def mock_hands(total_cards):
     return choice(options)
     
   
+                    
         
 def begin_game():
 
@@ -113,7 +124,7 @@ def begin_game():
     Author: Laurencia Aparin 
     
     
-    Technique set opertaions (intersection ) 
+    Technique set opertaions (intersection) 
     checks to see if any players card is in the community cards
     """
     
@@ -123,7 +134,6 @@ def begin_game():
     ]
     
     community_cards = ["Ace of Diamonds", "King of Hearts", "10 of Spades", "3 of Clubs", "7 of Hearts"]
-    
     
  
     all_player_cards = set(players[0]["hand"] + players[1]["hand"])
@@ -135,7 +145,7 @@ def begin_game():
         print(f"Found Match{len(same_cards)} cards on the board:{same_cards}")
     
     else:
-        print("No direct card match found. ")
+        print("No direct card match found.")
     
  
     pick = take_players_bets(players)

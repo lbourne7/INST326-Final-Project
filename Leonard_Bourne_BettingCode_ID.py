@@ -67,7 +67,6 @@ def build_round_data(players, community_cards):
     """ 
     This function structures the data for scoring from raw player objects.
     
-    Primary author: Leonard Bourne
     Techniques: Dictionary comprehension, f-strings
     
     
@@ -101,4 +100,52 @@ def build_round_data(players, community_cards):
     return player_names, bets, hand_ranks
 
 
+def play_game():
+    """This function establishes control for multiple rounds of the game
 
+    """
+    players = [
+        {"name": "Jerry", "hand": [], "current_bet": 0},
+        {"name": "Tom", "hand": [], "current_bet": 0}
+    ]
+        
+    player_points = {player['name']: 0 for player in players}
+    
+    while True:
+        print("\nNew Round")
+        
+        deck = create_deck()
+        
+        player_hands, community_cards = shuffle_and_deal(
+            num_players=len(players), 
+            deck=deck,
+            comm_count=5,
+            cards_per_player=2
+        )
+        
+        for i, player in enumerate(players):
+            player['hand'] = player_hands[i]
+            
+        print("\nYour hands:")
+        for player in players:
+            print(f"{player['name']}: {', '.join(player['hand'])}")
+            
+        print(f"\nCommunity Cards: {', '.join(community_cards)}")
+        
+        take_players_bets(players)
+        
+        determine_winners(players, community_cards)
+        
+        names, bets, ranks = build_round_data(players, community_cards)
+        summary = update_player_points(names, player_points, bets, ranks)
+        
+        print("Round results:", summary)
+        print("Total points:", player_points)
+        
+        again = input("\nWanna go again? (yes/no): ").lower()
+        if again not in ["yes", "y"]:
+            print("\nFinal Scores:", player_points)
+            break
+    
+if __name__ == "__main__":
+    play_game()

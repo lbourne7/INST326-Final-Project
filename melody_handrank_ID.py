@@ -14,6 +14,20 @@ HAND_NAMES = {
     10: "Testudo Flush"
 }
 
+class Hand:
+    """Represents a ranked poker hand."""
+
+    def __init__(self, rank):
+        self.rank = rank
+
+    # TECHNIQUE 2: magic methods other than __init__()
+    def __str__(self):
+        return HAND_NAMES[self.rank]
+
+    # __lt__ lets us compare two Hands with < and >
+    def __lt__(self, other):
+        return self.rank < other.rank
+
 
 def rank_hand(player_hand, community_cards):
     VALUE_MAP = {
@@ -53,22 +67,16 @@ def rank_hand(player_hand, community_cards):
         if freq[0] == 2 and freq[1] == 2: return 3
         if freq[0] == 2: return 2
         return 1
-
-    # all possible 5-card combo from all 7 cards and keeping the best ranked 
-    #hand to print
+        
+ # TECHNIQUE 1: max() with a key function
+    # Finds the best 5-card combo directly using score_five_cards
     all_cards = player_hand + community_cards
-    best_rank = 0
-    for combo in combinations(all_cards, 5):
-        rank = score_five_cards(combo)
-        if rank > best_rank:
-            best_rank = rank
-    print(f"Best hand found: {HAND_NAMES[best_rank]}!")
-    return best_rank
+    best_combo = max(combinations(all_cards, 5), key=score_five_cards)
+    best_rank = score_five_cards(best_combo)
 
+    # __str__ is called when printing the Hand object
+    result = Hand(best_rank)
+    print(f"Best hand found: {result}!")
+    return result
 
-
-# Test 
-player_hand = ["ace of spades", "king of spades"]
-community_cards = ["queen of spades", "jack of spades", "10 of spades",
-"2 of hearts", "5 of clubs"]
-print(rank_hand(player_hand, community_cards))  # Should print 10 (Testudo Flush)
+   

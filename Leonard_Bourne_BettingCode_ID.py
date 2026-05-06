@@ -63,4 +63,42 @@ def update_player_points(players, player_points, bets, hand_ranks):
         
     return round_summary
 
+def build_round_data(players, community_cards): 
+    """ 
+    This function structures the data for scoring from raw player objects.
+    
+    Primary author: Leonard Bourne
+    Techniques: Dictionary comprehension, f-strings
+    
+    
+    Args:
+        players (list of dict): Each player has 'name', 'hand', 'current_bet'
+        community_cards (list of dict): Shared cards
+        
+    Returns: 
+        tuple: 
+            player_names (list of strings)
+            bets (dict[str, int])
+            hand_ranks (dict[str, int])
+        
+    """
+    
+    player_names = []
+    bets = {}
+    hand_ranks = {}
+    
+    for player in players:
+        name = player['name']
+        hand = player['hand']
+        bet = player['current_bet']
+        
+        player_names.append(name)
+        bets[name] = bet
+        
+        rank = rank_hand(hand, community_cards)
+        hand_ranks[name] = rank
+        
+    return player_names, bets, hand_ranks
+
+
 

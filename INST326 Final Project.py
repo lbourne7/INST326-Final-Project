@@ -22,14 +22,11 @@ def take_players_bets(players):
     print("Betting round")
     
     for player in players: 
-          #if player.folded:
-           #  continue 
+        if player.folded:
+            continue 
         while True: 
             try:
                 bet = int(input(f" {player['name']}, enter your bet ")) 
-                # conditonal expressions s
-                player['status'] = "High roller" if bet > 100 else "Standard"
-                
                 player['current_bet'] = bet 
                 total_players += bet
                 break 
@@ -41,10 +38,12 @@ def take_players_bets(players):
 def determine_winners(players, community_cards):
     
     """"
-    Author: Laurencia Aparin 
-    
+     Author: Laurencia Aparin
+     
      This is used to evalute the state of the game and identify the players with 
-     the higest score 
+     the highset score 
+     
+     Techniques used sequence unpacking and condtional expression
      
      Attributes: 
             player[name],player[hand]
@@ -56,71 +55,45 @@ def determine_winners(players, community_cards):
         tuple: winners_names (str), highest_score(int)
     """
     
-    highest_score = -1
-    winners_name = "None"
-    calculate_hands = 0
+    highest_score = None
+    winners_inalist = []
+    
     
     print("Final Hand Ranking ")
     print(f"Community Cards: {', ' .join(community_cards)}")
   
     for player in players: 
+        if player.folded:
+            continue
       
-        total_cards = player['hand'] + community_cards
-       
-        if calculate_hands is not None:
-           rank_name, score =  mock_hands(total_cards)
-           
-        if calculate_hands is None:
-            score = int(1,100)
-            rank_name = "High card"
-       
-        """rank_name, score = mock_hands(total_cards)
-         """   
       
-        print (f"{player['name']} had: { ', '.join(player['hand'])}")
-        print(f"Result: {rank_name} (Score: {score})")
-    
-        if score > highest_score:
-            highest_score = score
-            winners_name = player['name']
-        else:
-            if score >= highest_score:
-            
-                  """"condtional expression we would be using it to see if the 
-                  score is higher make a new string (name). if there is a tie or 
-                  we add new name to the exsiting winners 
-                  """
-            winners_name = player['name'] if score > highest_score else f"{
-                     winners_name}" and {player['name']}
-            highest_score = score 
-        
-    return winners_name, highest_score
- 
-  
-def mock_hands(total_cards):
-    """"
-    This is a mock function that acts as the hand logic 
-    
-    Returns:
-         tuple: (str) rank_name , int score 
-    """
+        name, hand  = player.name, player.hand 
+        score = rank_hand(hand, community_cards)
 
-    
-    options = [
-        ("Royal Flush", 49),
-        ("Full House", 30),
-        ("Two Pair", 20),
-        ("High Card", 1)
-    ]
-    return choice(options)
-    
-  
-                    
+        rank_name = str(score)
+       
+      
+        print(f"{name} had: {' '.join(hand)}")
+        print(f"Result: {rank_name}")
+       
+        winners_inalist = ([name] if highest_score is None or score > highest_score
+        else winners_inalist + [name] if score == highest_score
+        else winners_inalist)
+
+        
+        if highest_score is None or score > highest_score:
+           highest_score = score 
+        
+    winners_names = " and ".join(winners_inalist)       
+            
+    return winners_names, highest_score
+ 
+                   
         
 def begin_game():
 
     """""
-    This is used to begin the Texas Hold'em game
+    This is used to begin the Texas Hold'em game as a mock but not actual 
     Author: Laurencia Aparin 
     
     

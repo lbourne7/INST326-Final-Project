@@ -15,6 +15,13 @@ class Player:
         current_bet: The amount the player has bet.
         folded: True if the player has folded and is out of the round.
         status: The player's current status .
+
+     Side Effects:
+            Sets self.name to the given name.
+            Sets self.hand to an empty list.
+            Sets self.current_bet to 0.
+            Sets self.folded to False.
+            Sets self.status to "Standard".
     """
   
     def __init__(self, name):
@@ -35,6 +42,9 @@ class Hand:
 
     Attributes:
         rank (int): The numeric rank of the hand (1-10).
+        
+     Side Effects:
+            Sets self.rank to the given rank value.
     """
     
     def __init__(self, rank):
@@ -93,6 +103,9 @@ def rank_hand(player_hand, community_cards):
                                    
     Returns:
         Hand: A Hand object representing the best 5-card combination found,
+        
+     Side Effects:
+        Prints the best hand found
     """
 
     def score_five_cards(five_cards):

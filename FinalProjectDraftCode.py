@@ -52,6 +52,15 @@ class Hand:
         return self.rank > other.rank
     
     def __eq__(self, other):
+      """
+        Checks if this hand is equal in rank to another
+        
+        Args: 
+        other: The other Hand to compare.
+
+        Returns:
+            bool: True if both hands have the same rank.
+        """
         return self.rank == other.rank
 
 

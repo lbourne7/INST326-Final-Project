@@ -39,8 +39,8 @@
 | Player.__init__     | Melody Sims    |     |
 |Hand.__init__     | Melody Sims     |    |
 |score_five_cards     | Melody Sims     |    |
-|data     | data     | data   |
-|data     | data     |data    |
+|take_players_bets    | Laurencia Aparin   |   |
+|determine_winners  | Laurencia Aparin  | sequence unpacking, conditional expression   |
 |data     | data     | data   |
 |data     | data     |data    |
 |data     | data     | data   |

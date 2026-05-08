@@ -1,12 +1,3 @@
-#Remember to document the side effects everywhere in the progam.
-#Writing to a file is a side effect
-#Setting attributes
-#We will lose points for not documenting the side effects
-#Make sure the program runs prior to submission
-#Say whos the primary author
-#Make a table on github that documents the functions of what is on the project.
-#Says that 
-
 #Melody Sims , Hand Ranking 
 from itertools import combinations
 import random
@@ -87,52 +78,42 @@ def rank_hand(player_hand, community_cards):
     result = Hand(best_rank)
     print(f"Best hand found: {result}!")
     return result
-
-
-# Laurencia's function to take players bets and return winner while giving 
-# player feedback 
-
-import random
+from random import choice
 def take_players_bets(players):
     """"
-    The will be for the betting round and it would get and collct the players 
-    bets:
+    Author: Laurencia Aparin
+    
+    Take the players bets and keeps them for active player of the round. 
     
     Atributes:
-         player[name], player[current_bet]
+        in the players 
+        name(str): the name of that player in a string 
+        folded(bool): if true then they dont contine if false then they do contintue
+        playing in the round. Determining if player is playing in current round 
+        or not.
+        current_bet(int): The amount that the player has in the round.
     Args:
-        players(list): A list of dictonaries that holds the players names and 
-        current bets 
-    
+        players(list): A list of player object 
+        
     returns:
-       int: The total sum of the bets collected
+       int: The total sum of the bets collected during the round 
        
-    Side Effects: 
-        Will update player.current_bet
-        WIll update player.status
-        Will print the betting information to the console
+     Side effects:
+         Changes the current_bet attribute to the player object of each of them
+         in the list. 
+         Prints the error message if invalid and the enter the bet when being ran 
+         Waits until the user input is given to continue 
     """
     total_players = 0
     print("Betting round")
     
     for player in players: 
         if player.folded:
-            continue
-        
+            continue 
         while True: 
             try:
-                bet = int(input(
-                    f"{player.name}, enter your bet "
-                    f"({BET_LIMITS['min']}-{BET_LIMITS['max']}): "
-                ))
-                
-                if bet < BET_LIMITS["min"] or bet > BET_LIMITS["max"]:
-                    print("Bet outside allowed range.")
-                    continue
-                player.status = ("High Roller" if bet == BET_LIMITS["max"] 
-                else "Standard")
+                bet = int(input(f" {player.name}, enter your bet ")) 
                 player.current_bet = bet 
-                print(f"{player.name} status: {player.status}")
                 total_players += bet
                 break 
             except ValueError:
@@ -143,46 +124,70 @@ def take_players_bets(players):
 def determine_winners(players, community_cards):
     
     """"
-     This is used to evalute the state of the game and identify the players with 
-     the higest score 
+     Author: Laurencia Aparin
+     
+     Evaluates each players hand and prints the results and shows who the winner
+     or winners are.
+     
+     Techniques used sequence unpacking and condtional expression
      
      Attributes: 
-            player[name],player[hand]
+            player.name: used to see players name and idetify them from others 
+            and return a string
+            player.hand: Used for caculating the hand rank
+            player.folded: used to see if they player skips or not(means that they 
+            would be playing instead)
      Args:
-         players(list): List of player in dictonary having the value of hand 
-         community_cards(list): The shared cards on the table 
+         players(list): List of player objects and the players have the attrbuties
+         of the name(str) as a string and hand(list) as a list
+         the community cards is a list that is being used to show the shared/
+         common cards
         
      Returns:
-        tuple: winners_names (str), highest_score(int)
+         A tuple that conatins the winners_names and high_score where the 
+         winners_name(str) is a string of naes and the highest_score is the 
+         winner of the rank value.
+         
+     Side Effects:
+        It prints out the community cards and the players hand as they are playing
+        and the rank 
     """
     
     highest_score = None
-    winners_name = []
-
+    winners_inalist = []
+    
     
     print("Final Hand Ranking ")
     print(f"Community Cards: {', ' .join(community_cards)}")
   
     for player in players: 
-      
         if player.folded:
             continue
-        
-        score = rank_hand(player.hand, community_cards)
-        rank_name = str(score)
-
       
-        print (f"{player.name} had: { ', '.join(player.hand)}")
-        print(f"Result: {rank_name} (Score: {score.rank})")
-    
-        if highest_score is None or score > highest_score:
-            highest_score = score
-            winners_name = [player.name]
-        elif score == highest_score:
-            winners_name.append(player.name)
-            
-    return winners_name, highest_score
+      
+        name, hand  = player.name, player.hand 
+        score = rank_hand(hand, community_cards)
+
+        rank_name = str(score)
+       
+      
+        print(f"{name} had: {' '.join(hand)}")
+        print(f"Result: {rank_name}")
+       
+        winners_inalist = ([name] if highest_score is None or score > highest_score
+        else winners_inalist + [name] if score == highest_score
+        else winners_inalist)
+
         
+        if highest_score is None or score > highest_score:
+           highest_score = score 
+        
+    winners_names = " and ".join(winners_inalist)       
+            
+    return winners_names, highest_score
+ 
+
+
 
 def create_deck():
     """

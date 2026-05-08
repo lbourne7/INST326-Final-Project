@@ -15,8 +15,8 @@
 - Jacoby, Oswald. “Poker | Principles, Types, Play, & History | Britannica.” Encyclopædia Britannica, 2021,                         www.britannica.com/topic/poker-card-game.
      Texas Hold’em Poker is a subset of the main game Poker. Given this, it was imperative that we                        first learned Poker itself to understand the ranking system and the rules prior to adding the Texas                          Hold’em Poker modifications, then onto our Maryland twist.
   
-- “Poker Hand Rankings & the Best Texas Hold’em Hands.” PokerCoaching Blog -, 20 June 2024, pokercoaching.com/blog/poker-            hands/. 
-            This was used to understand the poker hands to help team members understand more about the hand ranks and rules.
+- “Poker Hand Rankings & the Best Texas Hold’em Hands.” PokerCoaching Blog -, 20 June 2024, pokercoaching.com/blog/poker-            hands/.
+             This was used to understand the poker hands to help team members understand more about the hand ranks and rules.
   
 - “Texas Hold’em Poker.” Bicyclecards.com, bicyclecards.com/how-to-play/texas-holdem-poker. 
             We used this source to find out the rules of the Texas hold 'em poker card game. For the rules of our game we used it to have background information on the plays of the card game. 

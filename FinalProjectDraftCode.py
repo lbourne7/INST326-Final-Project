@@ -5,7 +5,6 @@ import random
 from game_data import (HAND_NAMES, VALUE_MAP, SUITS, VALUES, BET_LIMITS, 
                        BET_MULTIPLIERS)
 
-
 class Player:
     def __init__(self, name):
         self.name = name
@@ -78,6 +77,8 @@ def rank_hand(player_hand, community_cards):
     result = Hand(best_rank)
     print(f"Best hand found: {result}!")
     return result
+
+
 from random import choice
 def take_players_bets(players):
     """"

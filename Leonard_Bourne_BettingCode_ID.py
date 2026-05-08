@@ -1,4 +1,42 @@
-def update_player_points(players, player_points, bets, hand_ranks):
+def build_round_data(players, community_cards): 
+    """ 
+    This function structures the data for scoring from raw player objects.
+    
+    Primary author: Leonard Bourne
+    Techniques:  
+    
+    
+    Args:
+        players (list of dict): Each player has 'name', 'hand', 'current_bet'
+        community_cards (list of dict): Shared cards
+        
+    Returns: 
+        tuple: 
+            player_names (list of strings)
+            bets (dict[str, int])
+            hand_ranks (dict[str, int])
+    
+    Side Effects: 
+        This function calls rank_hand() for the active players.
+    """
+    
+    active_players = [player for player in players if not player.folded]
+   
+    player_names = [player.name for player in active_players]
+   
+    bets = {
+       player.name: player.current_bet
+       for player in active_players
+   }
+   
+    hand_ranks = {
+       player.name: rank_hand(player.hand, community_cards)
+       for player in active_players
+   }
+
+
+
+def update_player_points(player_points, bets, hand_ranks):
     """
     This function calculates and updates the player points according to
         the betting strategy and the hand strength
@@ -37,13 +75,11 @@ def update_player_points(players, player_points, bets, hand_ranks):
             
     """
     
-    bet_multipliers = {1: 1, 2: 2, 3: 3}
+    bet_multipliers = BET_MULTIPLIERS
     
     round_summary = {}
     
-    for player in players: 
-        if not all(player in d for d in [player_points, bets, hand_ranks]):
-            raise ValueError(f"Incomplete data: {player}")
+    for player in bets: 
         
         bet = bets[player]
         rank = hand_ranks[player]
@@ -51,7 +87,7 @@ def update_player_points(players, player_points, bets, hand_ranks):
         if bet not in bet_multipliers:
             raise ValueError(f"Bet needs to be between 1-3. {bet} for {player}")
         
-        raw_score = rank * bet_multipliers[bet]
+        raw_score = rank.rank * bet_multipliers[bet]
         
         risk_penalty = bet
         
@@ -63,82 +99,121 @@ def update_player_points(players, player_points, bets, hand_ranks):
         
     return round_summary
 
-def build_round_data(players, community_cards): 
-    """ 
-    This function structures the data for scoring from raw player objects.
-    
-    Techniques: Dictionary comprehension, f-strings
-    
-    
-    Args:
-        players (list of dict): Each player has 'name', 'hand', 'current_bet'
-        community_cards (list of dict): Shared cards
-        
-    Returns: 
-        tuple: 
-            player_names (list of strings)
-            bets (dict[str, int])
-            hand_ranks (dict[str, int])
-        
+def player_decision(player):
     """
+    This function allows to the player to either fold or continue with the game
     
-    player_names = []
-    bets = {}
-    hand_ranks = {}
+    Primary Author: Leonard Bourne
     
-    for player in players:
-        name = player['name']
-        hand = player['hand']
-        bet = player['current_bet']
-        
-        player_names.append(name)
-        bets[name] = bet
-        
-        rank = rank_hand(hand, community_cards)
-        hand_ranks[name] = rank
-        
-    return player_names, bets, hand_ranks
+    Side Effects:
+        This will read the users input from the console
+    """
+    while True:
+        choice = input(f"{player.name} --- fold or play?---").lower()
+        if choice in ["fold", "play"]:
+            return choice
+        print("Invalid input. Type in 'fold' or 'play'")
 
+def display_private_hands(players):
+    """Each player can only view there own hand
+    
+    Primary author: Leonard Bourne
+    
+    Side Effects:
+        Will Print the players hands into the console
+        Will pauses the programs execution with input()
+    
+    """
+    for player in players:
+        print(f"\n{player.name}, Careful... it's your turn.")
+        input("Press Enter when ready to view your hand")
+        
+        print(f"Your hand: {', '.join(player.hand)}")
+        
+        input("Press Enter when you are done(protect yourself. Or else...)")
+        
+        
+def reveal_all_hands(players):
+    """Reveal all hands at the end
+    
+    Primary author: Leonard Bourne
+    
+    Side Effects:
+        This will print all of the players hands into the console
+    """
+    print("\n--Final Hands--")
+    for player in players:
+        print(f"{player.name}: {', '.join(player.hand)}")
 
 def play_game():
     """This function establishes control for multiple rounds of the game
-
+    
+    Primary author: Leonard Bourne
+    Techniques:
     """
-    players = [
-        {"name": "Jerry", "hand": [], "current_bet": 0},
-        {"name": "Tom", "hand": [], "current_bet": 0}
-    ]
+    
+    while True:
+        try:
+            num_players = int(input("How many players?"))
+            if num_players > 0:
+                break
+            print("At least 1 player required.")
+        except ValueError:
+            print("Enter vaild number.")
         
-    player_points = {player['name']: 0 for player in players}
+        
+    players = []
+    for i in range(num_players):
+        name = input(f"Enter name for player {i+1}: ")
+        players.append(Player(name))
+    
+
+
+        
+    player_points = {player.name: 0 for player in players}
     
     while True:
         print("\nNew Round")
         
+        for player in players:
+            player.folded = False
+            player.current_bet = 0
+        
         deck = create_deck()
         
         player_hands, community_cards = shuffle_and_deal(
-            num_players=len(players), 
-            deck=deck,
-            comm_count=5,
-            cards_per_player=2
+           len(players), deck, 5
         )
         
         for i, player in enumerate(players):
-            player['hand'] = player_hands[i]
+            player.hand = player_hands[i]
             
-        print("\nYour hands:")
+        print("\n--Private Hand--")
+        display_private_hands(players)
+            
         for player in players:
-            print(f"{player['name']}: {', '.join(player['hand'])}")
-            
-        print(f"\nCommunity Cards: {', '.join(community_cards)}")
-        
+            if player_decision(player) == "fold":
+                player.folded = True
+       
+        flop = community_cards[:3]
+        print("\nFLOP:", ", ".join(flop))
         take_players_bets(players)
         
-        determine_winners(players, community_cards)
+        turn = community_cards[:4]
+        print("\nTURN:", ", ".join(turn))
+        take_players_bets(players)
         
-        names, bets, ranks = build_round_data(players, community_cards)
-        summary = update_player_points(names, player_points, bets, ranks)
+        river = community_cards 
+        print("\nRIVER:", ", ".join(river))
+        take_players_bets(players)
         
+        winners, top_score = determine_winners(players, river)
+        reveal_all_hands(players)
+        
+        names, bets, ranks = build_round_data(players, river)
+        summary = update_player_points(player_points, bets, ranks)
+        
+        print("\nWinner:", ", ".join(winners))
         print("Round results:", summary)
         print("Total points:", player_points)
         

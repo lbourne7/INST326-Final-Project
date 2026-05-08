@@ -28,3 +28,12 @@
   used it to have background information on the plays of the card game. 
 
 ### Attribution Chart
+
+| Method/Function | Primary Author| Techniques Demonstrated |
+|----------|----------|----------|
+| Hand.__str__     | Melody Sims   | magic methods other than __init__()   |
+| Hand.__lt__     | Melody Sims     |      |
+| Hand.__gt__     | Melody Sims     |      |
+| Hand.__eq__     | Melody Sims     |      |
+| rank_hand     | Melody Sims     | max() with a key function     |
+| data     | data     | data     |

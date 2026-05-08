@@ -15,13 +15,30 @@ HAND_NAMES = {
 }
 
 class Hand:
-    """Represents a ranked poker hand."""
+    """
+    Represents a ranked poker hand with a numeric rank and name.
+
+    Attributes:
+        rank (int): The numeric rank of the hand (1-10)
+    """
 
     def __init__(self, rank):
+        """
+        Initializes a Hand with a rank.
+
+        Args:
+            rank: The numeric rank of the hand (1-10).
+        """
         self.rank = rank
 
     # TECHNIQUE 2: magic methods other than __init__()
     def __str__(self):
+        """
+        Returns the display name of the hand
+
+        Returns:
+            str: The name of the hand 
+        """
         return HAND_NAMES[self.rank]
 
     # __lt__ lets us compare two Hands with < and >

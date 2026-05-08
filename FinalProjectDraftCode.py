@@ -146,6 +146,8 @@ def rank_hand(player_hand, community_cards):
     print(f"Best hand found: {result}!")
     return result
 
+#end of Melody Sims's section
+
 
 from random import choice
 def take_players_bets(players):

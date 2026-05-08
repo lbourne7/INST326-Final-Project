@@ -43,12 +43,12 @@
 |determine_winners  | Laurencia Aparin  | sequence unpacking, conditional expression   |
 |data     | data     | data   |
 |data     | data     |data    |
-|data     | data     | data   |
-|data     | data     |data    |
-|data     | data     | data   |
-|data     | data     |data    |
-|data     | data     | data   |
-|data     | data     |data    |
+|build_round_data     | Leonard Bourne     | List comprehensions   |
+|update_player_points     | Leonard Bourne     |data    |
+|player_decision     | Leonard Bourne      | data   |
+|display_private_hands     | Leonard Bourne     |data    |
+|reveal_all_hands    | Leonard Bourne     | data   |
+|play_game()     | Leonard Bourne     |data    |
 
 
 

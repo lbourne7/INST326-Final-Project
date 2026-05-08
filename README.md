@@ -46,7 +46,7 @@
 |build_round_data     | Leonard Bourne     | List comprehensions   |
 |update_player_points     | Leonard Bourne     |    |
 |player_decision     | Leonard Bourne      |    |
-|display_private_hands     | Leonard Bourne     |    |
+|display_private_hands     | Leonard Bourne     | optional parameters and/or keyword arguments   |
 |reveal_all_hands    | Leonard Bourne     |    |
 |play_game()     | Leonard Bourne     |    |
 

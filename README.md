@@ -7,7 +7,7 @@
             Indiviual files for each team members contributed code used to organize the code before compiling it all into the finale code of the project.
 
 ### How to Run Program
-- 
+- in terminal: python Finale_project.py
 
 ### How to use Program 
 

@@ -36,4 +36,17 @@
 | Hand.__gt__     | Melody Sims     |      |
 | Hand.__eq__     | Melody Sims     |      |
 | rank_hand     | Melody Sims     | max() with a key function     |
-| data     | data     | data     |
+| Player.__init__     | Melody Sims    |     |
+|Hand.__init__     | Melody Sims     |    |
+|score_five_cards     | Melody Sims     |    |
+|data     | data     | data   |
+|data     | data     |data    |
+|data     | data     | data   |
+|data     | data     |data    |
+|data     | data     | data   |
+|data     | data     |data    |
+
+
+ 
+ 
+ 

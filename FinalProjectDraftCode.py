@@ -15,13 +15,6 @@ class Player:
         current_bet: The amount the player has bet.
         folded: True if the player has folded and is out of the round.
         status: The player's current status .
-
-     Side Effects:
-            Sets self.name to the given name.
-            Sets self.hand to an empty list.
-            Sets self.current_bet to 0.
-            Sets self.folded to False.
-            Sets self.status to "Standard".
     """
   
     def __init__(self, name):
@@ -29,6 +22,13 @@ class Player:
         Initializes a Player with a name and default game state.
         Args:
             name: The player's name.
+            
+        Side Effects:
+            Sets self.name to the given name.
+            Sets self.hand to an empty list.
+            Sets self.current_bet to 0.
+            Sets self.folded to False.
+            Sets self.status to "Standard".
         """
         self.name = name
         self.hand = []

@@ -6,7 +6,23 @@ from game_data import (HAND_NAMES, VALUE_MAP, SUITS, VALUES, BET_LIMITS,
                        BET_MULTIPLIERS)
 
 class Player:
+ """
+    Represents a player in the game.
+
+    Attributes:
+        name: The player's name.
+        hand: The cards currently held by the player.
+        current_bet: The amount the player has bet.
+        folded: True if the player has folded and is out of the round.
+        status: The player's current status .
+    """
+  
     def __init__(self, name):
+       """
+        Initializes a Player with a name and default game state.
+        Args:
+            name: The player's name.
+        """
         self.name = name
         self.hand = []
         self.current_bet = 0

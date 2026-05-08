@@ -1,22 +1,29 @@
-# Laurencia's function to take players bets and return winner while giving 
-# player feedback 
 
 from random import choice
 def take_players_bets(players):
     """"
     Author: Laurencia Aparin
     
-    The will be for the betting round and it would get and collct the players 
-    bets:
+    Take the players bets and keeps them for active player of the round. 
     
     Atributes:
-         player[name], player[current_bet]
+        in the players 
+        name(str): the name of that player in a string 
+        folded(bool): if true then they dont contine if false then they do contintue
+        playing in the round. Determining if player is playing in current round 
+        or not.
+        current_bet(int): The amount that the player has in the round.
     Args:
-        players(list): A list of dictonaries that holds the players names and 
-        current bets 
-    
+        players(list): A list of player object 
+        
     returns:
-       int: The total sum of the bets collected
+       int: The total sum of the bets collected during the round 
+       
+     Side effects:
+         Changes the current_bet attribute to the player object of each of them
+         in the list. 
+         Prints the error message if invalid and the enter the bet when being ran 
+         Waits until the user input is given to continue 
     """
     total_players = 0
     print("Betting round")
@@ -26,8 +33,8 @@ def take_players_bets(players):
             continue 
         while True: 
             try:
-                bet = int(input(f" {player['name']}, enter your bet ")) 
-                player['current_bet'] = bet 
+                bet = int(input(f" {player.name}, enter your bet ")) 
+                player.current_bet = bet 
                 total_players += bet
                 break 
             except ValueError:
@@ -40,19 +47,31 @@ def determine_winners(players, community_cards):
     """"
      Author: Laurencia Aparin
      
-     This is used to evalute the state of the game and identify the players with 
-     the highset score 
+     Evaluates each players hand and prints the results and shows who the winner
+     or winners are.
      
      Techniques used sequence unpacking and condtional expression
      
      Attributes: 
-            player[name],player[hand]
+            player.name: used to see players name and idetify them from others 
+            and return a string
+            player.hand: Used for caculating the hand rank
+            player.folded: used to see if they player skips or not(means that they 
+            would be playing instead)
      Args:
-         players(list): List of player in dictonary having the value of hand 
-         community_cards(list): The shared cards on the table 
+         players(list): List of player objects and the players have the attrbuties
+         of the name(str) as a string and hand(list) as a list
+         the community cards is a list that is being used to show the shared/
+         common cards
         
      Returns:
-        tuple: winners_names (str), highest_score(int)
+         A tuple that conatins the winners_names and high_score where the 
+         winners_name(str) is a string of naes and the highest_score is the 
+         winner of the rank value.
+         
+     Side Effects:
+        It prints out the community cards and the players hand as they are playing
+        and the rank 
     """
     
     highest_score = None
@@ -90,49 +109,3 @@ def determine_winners(players, community_cards):
  
                    
         
-def begin_game():
-
-    """""
-    This is used to begin the Texas Hold'em game as a mock but not actual 
-    Author: Laurencia Aparin 
-    
-    
-    Technique set opertaions (intersection) 
-    checks to see if any players card is in the community cards
-    """
-    
-    players = [
-        {"name": "Jerry", "hand": ["Ace of Hearts", "Ace of Spades"], "current_bet": 0},
-        {"name": "Tom", "hand": ["5 of Clubs", "7 of Diamonds"], "current_bet": 0}
-    ]
-    
-    community_cards = ["Ace of Diamonds", "King of Hearts", "10 of Spades", "3 of Clubs", "7 of Hearts"]
-    
- 
-    all_player_cards = set(players[0]["hand"] + players[1]["hand"])
-    community_set = set(community_cards)
-    
-    same_cards = all_player_cards.intersection(community_set)
-    
-    if same_cards: 
-        print(f"Found Match{len(same_cards)} cards on the board:{same_cards}")
-    
-    else:
-        print("No direct card match found.")
-    
- 
-    pick = take_players_bets(players)
-    print(f"The total of the pick is: {pick}")
-    
-    winners, top_score = determine_winners(players, community_cards)
-    print(f"Winner is {winners.upper()} with score of {top_score}")
-    
-    
-if __name__ == "__main__":
-    begin_game()
-
-                
-            
-            
-    
- 

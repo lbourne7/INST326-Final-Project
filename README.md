@@ -4,13 +4,33 @@
 - Finale Program.py : The code file used to run our current game in terminal
 - game_data.py: all the values and ranking used in our code used for cards, values, hand names , and any card attributes
 - Following files:
-            Indiviual files for each team members contributed code used to organize the code before compiling it all into the finale code of the project.
+            Individual files for each team members contributed code used to organize the code before compiling it all into the finale code of the project.
 
 ### How to Run Program
-- in terminal: python Finale_program.py
+1. Ensure Python 3 is installed on your computer.
+2. Download or clone the project files from the GitHub repository.
+3. Then open the project folder in VS Code or related terminal.
+4. Please ensure that both FinalProjectCode.py and game_data.py are in the same folder or the program will not work.
+5. Open the terminal in the project directory.
+6. Then run the follwing command python FinalProjectCode.py
 
 ### How to use Program 
-
+1. After starting the program, enter in how many players you would like to partake in the game.
+2. Each player will need to enter in their name.
+3. The program will then privately display each player's hand one at a time.
+4. The player can then choose to either "fold" or "play".
+   fold: Removes the current player from the round
+   play: Continues the round with that player.
+5. Community cards will be revealed in stages:
+               Flop
+               Turn
+               River
+6. During each stage, the active players must place bets by entering a number between 1-3.
+7. After all betting rounds are finished:
+               The program will evaluate all of the active hands
+               Determine who the winner is
+               Display the round points and total scores
+8. Players can opt to play again or end the game by selecting yes or no in the terminal after being prompted to play again.
 
 ### Annotated Bibliography 
 - Jacoby, Oswald. “Poker | Principles, Types, Play, & History | Britannica.” Encyclopædia Britannica, 2021,                         www.britannica.com/topic/poker-card-game.

@@ -299,7 +299,7 @@ def determine_winners(players, community_cards):
 
     Side Effects:
         Prints community cards, player hands,
-        and ranking information.
+        and ranking information as they are playing.
 
     Raises:
         if player object is missing attributes   

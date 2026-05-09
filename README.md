@@ -41,9 +41,9 @@
 |score_five_cards     | Melody Sims     |    |
 |take_players_bets    | Laurencia Aparin   |   |
 |determine_winners  | Laurencia Aparin  | sequence unpacking, conditional expression   |
-|data     | data     | data   |
-|data     | data     |data    |
-|build_round_data     | Leonard Bourne     | List comprehensions   |
+|create_deck    | Jonathan Sanchez     | f-strings containing expressions  |
+|shuffle_and_deal     | Jonathan Sanchez     | set operations using difference  |
+|build_round_data     | Leonard Bourne     | List comprehensions and Dictionary comprehensions  |
 |update_player_points     | Leonard Bourne     |    |
 |player_decision     | Leonard Bourne      |    |
 |display_private_hands     | Leonard Bourne     | optional parameters and/or keyword arguments   |

@@ -219,20 +219,10 @@ def take_players_bets(players):
     Takes the players' bets and stores them for active players
     in the current round.
 
-    Attributes:
-        player.name (str):
-            The player's name.
-
-        player.folded (bool):
-            Determines whether the player is still active.
-
-        player.current_bet (int):
-            The amount bet by the player.
-
     Args:
         players (list):
-            A list of Player objects.
-
+            A list of Player objects. Each object has to have
+            'folded', 'name', and 'current_bet' attributes.
     Returns:
         int:
             Total sum of bets collected during the round.
@@ -241,6 +231,11 @@ def take_players_bets(players):
         Changes the current_bet attribute of players.
         Prints error messages for invalid input.
         Waits for user input.
+
+
+    Raises:
+        ValueError: If a non-numeric string is entered by the user (this 
+        is caught and makes the user enter a correct input)
     """
 
     total_players = 0
@@ -285,19 +280,11 @@ def determine_winners(players, community_cards):
         Sequence Unpacking
         Conditional Expressions
 
-    Attributes:
-        player.name:
-            Used to identify the player.
-
-        player.hand:
-            Used for calculating hand rank.
-
-        player.folded:
-            Determines whether the player is skipped.
-
     Args:
         players (list):
-            List of Player objects.
+            List of Player objects. The players have the attributes
+            of the name(str) as a string for each player and hand(list) as a list
+            folded (bool) if player is playing or not
 
         community_cards (list):
             Shared community cards.
@@ -313,6 +300,9 @@ def determine_winners(players, community_cards):
     Side Effects:
         Prints community cards, player hands,
         and ranking information.
+
+    Raises:
+        if player object is missing attributes   
     """
 
     highest_score = None

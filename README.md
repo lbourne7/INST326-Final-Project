@@ -1,7 +1,7 @@
 # INST326-Final-Project
 
 ### File purpose
-- Finale Project.py : The code file used to run our current game in terminal
+- Finale Program.py : The code file used to run our current game in terminal
 - game_data.py: all the values and ranking used in our code used for cards, values, hand names , and any card attributes
 - Following files:
             Indiviual files for each team members contributed code used to organize the code before compiling it all into the finale code of the project.

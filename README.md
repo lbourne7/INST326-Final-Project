@@ -22,8 +22,8 @@
    fold: Removes the current player from the round
    play: Continues the round with that player.
 5. Community cards will be revealed in stages:
-               Flop
-               Turn
+               Flop,
+               Turn,
                River
 6. During each stage, the active players must place bets by entering a number between 1-3.
 7. After all betting rounds are finished:

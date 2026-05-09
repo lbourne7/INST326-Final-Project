@@ -219,6 +219,16 @@ def take_players_bets(players):
     Takes the players' bets and stores them for active players
     in the current round.
 
+    Attributes:
+        player.name (str):
+            The player's name.
+
+        player.folded (bool):
+            Determines whether the player is still active.
+
+        player.current_bet (int):
+            The amount bet by the player.
+
     Args:
         players (list):
             A list of Player objects.
@@ -231,11 +241,6 @@ def take_players_bets(players):
         Changes the current_bet attribute of players.
         Prints error messages for invalid input.
         Waits for user input.
-
-    Raises:
-        ValueError: If a non-numeric string is entered by the user (this 
-        is caught and makes the user enter a correct input)
-        
     """
 
     total_players = 0
@@ -280,11 +285,19 @@ def determine_winners(players, community_cards):
         Sequence Unpacking
         Conditional Expressions
 
+    Attributes:
+        player.name:
+            Used to identify the player.
+
+        player.hand:
+            Used for calculating hand rank.
+
+        player.folded:
+            Determines whether the player is skipped.
+
     Args:
         players (list):
-            List of Player objects. The players have the attributes
-            of the name(str) as a string for each player and hand(list) as a list
-            folded (bool) if player is playing or not
+            List of Player objects.
 
         community_cards (list):
             Shared community cards.
@@ -300,9 +313,6 @@ def determine_winners(players, community_cards):
     Side Effects:
         Prints community cards, player hands,
         and ranking information.
-
-     Raises:
-        if player object is missing attributes
     """
 
     highest_score = None
@@ -352,6 +362,9 @@ def determine_winners(players, community_cards):
 def create_deck():
     """
     Creates a standard 52-card deck.
+    
+    Primary author: Jonathan Sanchez
+    Techniques: Use of F-strings containing expressions
 
     Returns:
         list[str]: List of card strings.
@@ -363,6 +376,7 @@ def create_deck():
         for value in VALUES:
             deck.append(f"{value} of {suit}")
 
+        
     return deck
 
 
@@ -374,6 +388,9 @@ def shuffle_and_deal(
 ):
     """
     Shuffles and deals cards.
+    
+    Primary author: Jonathan Sanchez
+    Techniques: Set operations using difference
 
     Args:
         num_players (int): Number of players.
@@ -391,6 +408,8 @@ def shuffle_and_deal(
     """
 
     random.shuffle(deck)
+    
+    original_deck = set(deck)
 
     player_hand = []
 
@@ -407,6 +426,11 @@ def shuffle_and_deal(
 
     for _ in range(comm_count):
         comm_cards.append(deck.pop())
+        
+    # Use of set operations using difference
+    dealt_cards = original_deck.difference(set(deck))
+    
+    print(f"Cards dealt this round: {len(dealt_cards)} ")
 
     return player_hand, comm_cards
 
@@ -691,7 +715,7 @@ def play_game():
             ranks
         )
 
-        print("\nWinner:", ", ".join(winners))
+        print("\nWinner:", winners)
         print("Round results:", summary)
         print("Total points:", player_points)
 
